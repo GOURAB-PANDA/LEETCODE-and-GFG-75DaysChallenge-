@@ -31,40 +31,25 @@ class Driverclass
 // } Driver Code Ends
 
 
-
 class Solution {
-    // Function to check if brackets are balanced or not.
     static boolean ispar(String x) {
-        // Initialize a stack to keep track of opening brackets.
         Stack<Character> stack = new Stack<>();
         
-        // Iterate through each character in the input string.
-        for (int i = 0; i < x.length(); i++) {
-            char ch = x.charAt(i);
-            
-            // If the character is an opening bracket, push it onto the stack.
+        for (char ch : x.toCharArray()) {
             if (ch == '(' || ch == '{' || ch == '[') {
                 stack.push(ch);
-            } else {
-                // If the stack is empty when encountering a closing bracket, return false.
+            }
+            else if (ch == ')' || ch == '}' || ch == ']') {
                 if (stack.isEmpty()) {
                     return false;
                 }
-                
-                // Check if the top of the stack matches the corresponding opening bracket.
-                char top = stack.peek();
-                if ((top == '(' && ch == ')') || 
-                    (top == '{' && ch == '}') || 
-                    (top == '[' && ch == ']')) {
-                    stack.pop();
-                } else {
-                    return false; // Mismatched bracket.
+                char top = stack.pop();
+                if ((ch == ')' && top != '(') || (ch == '}' && top != '{') || (ch == ']' && top != '[')) {
+                    return false;
                 }
             }
         }
         
-        // If the stack is empty at the end, all brackets were balanced.
         return stack.isEmpty();
     }
 }
-
